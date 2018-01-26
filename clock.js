@@ -1,71 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
 //code and events below
+var second = document.getElementById('second');
+var minute = document.getElementById('minute');
+var hour = document.getElementById('hour');
+var degSecond;
+var degMinute;
+var degHour;
 
-var eachSecond = 6;
-var eachMinute = 6;
-var eachHour = 6;
+var trackTime = function() {
+	var present = new Date();
+	degSecond = present.getSeconds();
+	degMinute = present.getMinutes();
+	degHour = present.getHours();
 
-var seconds = function() {
-	var second = document.getElementById('second');
-
-	second.style.transform = "rotate(" + eachSecond + "deg)";
-
-	eachSecond += 6;
-};
-
-var minutes = function() {
-	var minute = document.getElementById('minute');
-
-	minute.style.transform = "rotate(" + eachMinute + "deg)";
-
-	eachMinute += 6;
-};
-
-var hours = function() {
-	var hour = document.getElementById('hour');
-
-	hour.style.transform = "rotate(" + eachHour + "deg)";
-
-	eachHour += 6;
-};
-
-var resetSec = function () {
-	if (eachSecond === 360) {
-	eachSecond = 0;
-	console.log(eachSecond);
+	second.style.transform = "rotate(" + degSecond*6 + "deg)";
+	minute.style.transform = "rotate(" + degMinute*6 + "deg)";
+	
+	if (degHour > 12) {
+		degHour = degHour - 12;
 	}
+	hour.style.transform = "rotate(" + (degHour*30) + "deg)";
+	// console.log(degHour, degSecond, degMinute);
 };
 
-var resetMin = function () {
-	if (eachMinute === 360) {
-	eachMinute = 0;
-	console.log(eachMinute);
-	}
-};
 
-var resetHour = function () {
-	if (eachHour === 360) {
-	eachHour = 0;
-	console.log(eachHour);
-	}
-};
-
-setInterval(function() {
-	resetSec();
-	 seconds();
-}, 1000);
-
-setInterval(function() {
-	resetMin();
-	minutes();
-}, 60000);
-
-setInterval(function() {
-	resetHour();
-	hours();
-}, 720000000);
-
+setInterval(trackTime, 1000);
 });
+
 
 
 
